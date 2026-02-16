@@ -6,28 +6,16 @@
     <title>2026 宇宙情书 - 全先生生日快乐</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
-
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at center, #0a0a2a 0%, #010105 100%);
+            background: #000;
             overflow: hidden;
-            font-family: 'PingFang SC', sans-serif;
+            font-family: 'PingFang SC', 'Helvetica Neue', sans-serif;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            color: white;
         }
         #canvas { display: block; }
-
-        .nebula {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(60, 20, 120, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(20, 60, 120, 0.15) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
-        }
 
         .overlay {
             position: fixed;
@@ -43,17 +31,16 @@
 
         .btn-start {
             pointer-events: auto;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #f0f0ff;
-            padding: 16px 40px;
+            padding: 18px 50px;
             border-radius: 60px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
             cursor: pointer;
-            font-size: 18px;
-            letter-spacing: 5px;
-            box-shadow: 0 0 20px rgba(100, 150, 255, 0.2);
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            box-shadow: 0 0 30px rgba(100, 150, 255, 0.1);
             transition: 0.5s;
             animation: float-btn 4s ease-in-out infinite;
         }
@@ -72,21 +59,13 @@
             cursor: pointer;
             z-index: 200;
             pointer-events: auto;
+            opacity: 0;
             transition: opacity 1s;
         }
-        .box-body {
-            width: 100%; height: 100%;
-            background: #902020;
-            border-radius: 4px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .box-body { width: 100%; height: 100%; background: #902020; border-radius: 4px; position: relative; }
         .box-lid {
-            width: 110%; height: 25px;
-            background: #b03030;
-            position: absolute;
-            top: -15px; left: -5%;
-            border-radius: 2px;
+            width: 110%; height: 25px; background: #b03030;
+            position: absolute; top: -15px; left: -5%; border-radius: 2px;
             transition: 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
         .ribbon { position: absolute; background: #d4af37; z-index: 2; }
@@ -98,34 +77,32 @@
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0.9);
-            width: 90%; max-width: 450px;
-            max-height: 80vh;
-            background: #fffefb;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            width: 90%; max-width: 460px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 50px 120px rgba(0,0,0,0.9);
             z-index: 300;
             opacity: 0;
-            transition: 2s cubic-bezier(0.2, 1, 0.3, 1);
+            transition: 1.5s cubic-bezier(0.2, 1, 0.3, 1);
             pointer-events: auto;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .card-content {
-            font-family: 'Ma Shan Zheng', cursive;
-            line-height: 1.8;
-            font-size: 1.2rem;
-            color: #333;
+            color: #222;
         }
     </style>
 </head>
 <body>
 
-<div class="nebula"></div>
+<audio id="bgMusic" loop>
+    <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+</audio>
+<audio id="fireworkSound">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-firework-light-explosion-bomb-2868.mp3" type="audio/mpeg">
+</audio>
+
 <canvas id="canvas"></canvas>
 
 <div class="overlay" id="ui">
-    <button class="btn-start" id="startBtn">拆开你的生日礼物</button>
+    <button class="btn-start" id="startBtn">拆开生日礼物</button>
 </div>
 
 <div id="gift-box">
@@ -137,324 +114,366 @@
 </div>
 
 <div id="card">
-    <div class="card-content">
-        <p class="mb-5 text-2xl font-bold">全先生：</p>
+    <div class="text-2xl font-bold mb-5">致全先生：</div>
+    <div class="line-relaxed text-gray-700">
         <p class="mb-4">在一起的第7个年头，今年想做点不一样的，全程AI制作请笑纳！</p>
-        <p class="mb-4">感谢2025带我看到了更辽阔的风景和更多的可能，一路走来你成为了我的底气，感谢你的托举和爱，感谢你一直以来的包容和信任可以让我随时随地做真实的自己，给了我往前走的勇气。</p>
-        <p class="mb-4">2026新的一年啦，之前一直说希望我们可以成为更好的自己，但今年我想说希望我们可以一起更好的成为自己。</p>
-        <p class="mb-4">我们不一定往高处走也可以往四处走，一起去感受，探索，体验，经历，享受生命给予的一切。</p>
-        <p class="mb-6">希望你2026年开心自在，平安喜乐，希望我们能在平凡的日子中，彼此继续热爱！</p>
-        <div class="mt-8 pt-6 border-t border-gray-100 text-right">
-            <p>你的挚爱</p>
-            <p>2026.02.16</p>
-            <button onclick="location.reload()" class="text-xs text-gray-400 mt-6 underline cursor-pointer hover:text-gray-600">重新开启星际之旅</button>
+        <p class="mb-4">感谢2025带我看到了更辽阔的风景和更多的可能，一路走来你成为了我的底气，感谢你的托举和爱。让我可以随时随地做真实的自己，给了我往前走的勇气。</p>
+        <p class="mb-4">2026新的一年，希望我们可以一起更好的成为自己。我们不一定往高处走，也可以往四处走，去感受、探索、经历，享受生命的一切。</p>
+        <p class="mb-6">希望你开心自在，平安喜乐，在平凡的日子中，彼此继续热爱！</p>
+        <div class="mt-8 pt-6 border-t border-gray-100 text-right font-semibold">
+            <p>永远爱你的 ——</p>
+            <p class="text-gray-400 text-sm">2026.02.16</p>
+            <button onclick="location.reload()" class="text-xs text-blue-500 mt-6 underline cursor-pointer">重新回味</button>
         </div>
     </div>
 </div>
 
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, stars = [], particles = [], fireworks = [], meteors = [];
-        let stage = -2; // -2: 小王子, 3: 生日文字, 4: 烟花, 5: 蛋糕
-        let heartAngleOffset = 0;
-        const PARTICLE_COUNT = 3500;
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const bgMusic = document.getElementById('bgMusic');
+    const fwSound = document.getElementById('fireworkSound');
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * window.innerWidth;
-                this.y = Math.random() * window.innerHeight;
-                this.destX = this.x;
-                this.destY = this.y;
-                this.vx = 0; this.vy = 0;
-                this.acc = 0.004;
-                this.friction = 0.92;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.color = '#fff';
-                this.alpha = Math.random();
-                this.isHeart = false;
-                this.heartIdx = 0;
-            }
-            update() {
-                if (this.isHeart && stage === 3) {
-                    const angle = (this.heartIdx / 400) * Math.PI * 2 + heartAngleOffset;
-                    const scale = Math.min(width/40, 12);
-                    this.destX = width / 2 + (16 * Math.pow(Math.sin(angle), 3)) * scale;
-                    this.destY = height / 2 - (13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle)) * scale;
-                }
+    let width, height, particles = [], fireworks = [], stars = [], meteors = [];
+    let stage = -1; 
+    let heartRot = 0;
+    let heartFlowOffset = 0;
+    const PARTICLE_COUNT = 60000; 
 
-                let dx = this.destX - this.x;
-                let dy = this.destY - this.y;
-                this.vx += dx * this.acc;
-                this.vy += dy * this.acc;
-                this.vx *= this.friction;
-                this.vy *= this.friction;
-                this.x += this.vx;
-                this.y += this.vy;
-
-                this.alpha = 0.4 + Math.abs(Math.sin(Date.now() * 0.001 + this.x * 0.01)) * 0.5;
-            }
-            draw() {
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+    class Particle {
+        constructor() {
+            this.x = Math.random() * window.innerWidth;
+            this.y = -100; 
+            this.destX = this.x;
+            this.destY = this.y;
+            this.vx = 0; this.vy = 0;
+            this.size = Math.random() * 1.1 + 0.4;
+            this.color = 'rgba(255,255,255,0)';
+            this.acc = 0.04 + Math.random() * 0.04;
+            this.friction = 0.88;
+            this.isHeart = false;
+            this.heartIdx = 0;
+            this.heartPhase = Math.random() * Math.PI * 2;
         }
+        update() {
+            if (stage === -1) return;
 
-        class Meteor {
-            constructor() { this.init(); }
-            init() {
-                this.x = Math.random() * width;
-                this.y = -20;
-                this.speed = Math.random() * 4 + 4;
-                this.len = Math.random() * 60 + 20;
-                this.angle = Math.PI / 4;
+            if (this.isHeart && stage === 2) {
+                const t = (this.heartIdx / 4500) * Math.PI * 2 + heartRot;
+                const flow = Math.sin(heartFlowOffset + this.heartPhase) * 6;
+                const scale = Math.min(width/28, 16);
+                const ox = Math.sin(heartRot * 0.4) * 40;
+                
+                const baseDestX = width / 2 + ox + (16 * Math.pow(Math.sin(t), 3)) * scale;
+                const baseDestY = height / 2 - (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * scale;
+                
+                // 窄一点的偏移
+                const thickness = (Math.random() - 0.5) * 8; 
+                this.destX = baseDestX + thickness + flow;
+                this.destY = baseDestY + thickness + flow;
             }
-            update() {
-                this.x += Math.cos(this.angle) * this.speed;
-                this.y += Math.sin(this.angle) * this.speed;
-                if (this.x > width || this.y > height) this.init();
-            }
-            draw() {
-                ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - Math.cos(this.angle) * this.len, this.y - Math.sin(this.angle) * this.len);
-                ctx.stroke();
-            }
+
+            let dx = this.destX - this.x;
+            let dy = this.destY - this.y;
+            this.vx += dx * this.acc;
+            this.vy += dy * this.acc;
+            this.vx *= this.friction;
+            this.vy *= this.friction;
+            this.x += this.vx;
+            this.y += this.vy;
         }
+        draw() {
+            if (stage === -1) return;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
 
-        function getHandDrawnPoints() {
-            const pts = [];
-            const cx = width / 2, cy = height / 2 + 50;
-            const s = Math.min(width, height) / 450;
-            function addLine(x1, y1, x2, y2, color, density = 0.02) {
-                for(let i=0; i<1; i+=density) {
-                    pts.push({
-                        x: cx + (x1 + (x2 - x1) * i)*s + (Math.random()-0.5)*5,
-                        y: cy + (y1 + (y2 - y1) * i)*s + (Math.random()-0.5)*5,
-                        c: color
+    class Meteor {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * width * 1.5;
+            this.y = -100;
+            this.len = Math.random() * 80 + 50;
+            this.speed = Math.random() * 10 + 15;
+            this.alpha = 1;
+        }
+        update() {
+            this.x -= this.speed;
+            this.y += this.speed;
+            if (this.x < -100 || this.y > height + 100) this.reset();
+        }
+        draw() {
+            ctx.strokeStyle = `rgba(255, 255, 255, ${Math.random() * 0.5})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(this.x + this.len, this.y - this.len);
+            ctx.stroke();
+        }
+    }
+
+    function getSketchPoints() {
+        const pts = [];
+        const scale = Math.min(width, height) / 450;
+        const cx = width / 2 - 20, cy = height / 2 + 50;
+        const wheatYellow = '#F5DEB3'; // 麦黄色
+
+        function addSketchLine(path, color, density = 0.001) {
+            for (let i = 0; i < path.length - 1; i++) {
+                const p1 = path[i], p2 = path[i+1];
+                for (let t = 0; t < 1; t += density) {
+                    pts.push({ 
+                        x: cx + (p1[0] + (p2[0] - p1[0]) * t) * scale + (Math.random()-0.5)*1.2, 
+                        y: cy + (p1[1] + (p2[1] - p1[1]) * t) * scale + (Math.random()-0.5)*1.2, 
+                        c: color 
                     });
                 }
             }
-            addLine(-50, -120, -20, -135, '#ffe16b'); // 头发
-            addLine(-20, -135, 10, -120, '#ffe16b');
-            addLine(-55, -110, -45, -60, '#ffcc33'); // 披风
-            addLine(-90, -40, -100, 0, '#ffcc33');
-            addLine(-45, -60, -40, 60, '#fff7d1'); // 身体
-            addLine(35, -20, 50, -50, '#ff8c00'); // 狐狸
-            addLine(50, -50, 65, -20, '#ff8c00');
-            addLine(30, 60, 70, 60, '#ff8c00');
-            addLine(70, 60, 130, 60, '#ffb366');
-            return pts;
         }
 
-        function getTextPoints(text, size) {
-            const pts = [];
-            const tCanvas = document.createElement('canvas');
-            const tCtx = tCanvas.getContext('2d');
-            tCanvas.width = width; tCanvas.height = height;
-            tCtx.fillStyle = "white";
-            tCtx.textAlign = "center";
-            tCtx.textBaseline = "middle";
-            tCtx.font = `bold ${size}px sans-serif`;
-            tCtx.fillText(text, width/2, height/2);
-            const data = tCtx.getImageData(0, 0, width, height).data;
-            for (let y = 0; y < height; y += 5) {
-                for (let x = 0; x < width; x += 5) {
-                    if (data[(y * width + x) * 4 + 3] > 128) pts.push({x, y});
+        // 修改为麦黄色：头发
+        addSketchLine([[-40,-130], [-25,-155], [0,-145], [-5,-125], [-40,-130]], wheatYellow); 
+        addSketchLine([[-20,-125], [-20,-40]], '#ffdbac'); 
+        // 修改为麦黄色：围巾
+        addSketchLine([[-20,-115], [-95,-100], [-125,-40], [-100, -20]], wheatYellow); 
+        
+        addSketchLine([[-20,-40], [-55,-10], [-45,40]], '#ffdbac'); 
+        addSketchLine([[-20,-40], [15,-10], [5,40]], '#ffdbac'); 
+        const fx = 60, fy = 10;
+        addSketchLine([[fx,fy], [fx+12,fy-25], [fx+25,fy-5]], '#f97316'); 
+        addSketchLine([[fx+10,fy], [fx+40,fy+35], [fx+90,fy+35], [fx+120,fy-10], [fx+80,fy-30], [fx+50,fy-10]], '#f97316'); 
+        addSketchLine([[fx+25,fy-5], [fx+45,fy+15]], '#f97316'); 
+        return pts;
+    }
+
+    function getTextPoints(text) {
+        const pts = [];
+        const tCanvas = document.createElement('canvas');
+        const tCtx = tCanvas.getContext('2d');
+        tCanvas.width = width; tCanvas.height = height;
+        tCtx.fillStyle = "white";
+        tCtx.textAlign = "center";
+        tCtx.font = `bold ${Math.min(width/10, 85)}px sans-serif`;
+        tCtx.fillText(text, width/2, height/2);
+        const data = tCtx.getImageData(0,0,width,height).data;
+        for(let y=0; y<height; y+=3) { 
+            for(let x=0; x<width; x+=3) {
+                if(data[(y*width + x)*4 + 3] > 128) {
+                    const hue = (x / width) * 360;
+                    pts.push({x, y, c: `hsla(${hue}, 80%, 75%, 1)`});
                 }
             }
-            return pts;
         }
+        return pts;
+    }
 
-        async function updateStage(s) {
-            stage = s;
-            let targets = [];
-            let color = "#fff";
-
-            if (s === -2) {
-                targets = getHandDrawnPoints();
-            } else if (s === 3) {
-                targets = getTextPoints("Happy Birthday", Math.min(width/10, 70));
-                color = "#ffbaba";
-            } else if (s === 5) {
-                const cx = width/2, cy = height/2 + 100;
-                for(let x=-120; x<120; x+=7) for(let y=0; y<40; y+=7) targets.push({x: cx+x, y: cy+y, c: '#ff99cc'});
-                for(let x=-80; x<80; x+=7) for(let y=-40; y<0; y+=7) targets.push({x: cx+x, y: cy+y, c: '#ffcce6'});
-                for(let x=-50; x<50; x+=7) for(let y=-80; y<-40; y+=7) targets.push({x: cx+x, y: cy+y, c: '#ffffff'});
-                const cXs = [-35, 0, 35];
-                cXs.forEach(x => {
-                    for(let y=-110; y<-80; y+=5) targets.push({x: cx+x, y: cy+y, c: '#ffd700'});
-                });
-            }
-
-            particles.forEach((p, i) => {
-                p.isHeart = false;
-                p.acc = 0.004;
-                if (i < targets.length) {
-                    p.destX = targets[i].x;
-                    p.destY = targets[i].y;
-                    p.color = targets[i].c || color;
-                } else if (s === 3 && i < targets.length + 400) {
-                    p.isHeart = true;
-                    p.heartIdx = i - targets.length;
-                    p.color = "rgba(255, 80, 120, 0.8)";
-                } else {
-                    const angle = Math.random() * Math.PI * 2;
-                    const r = Math.random() * width * 1.2;
-                    p.destX = width/2 + Math.cos(angle) * r;
-                    p.destY = height/2 + Math.sin(angle) * r;
-                    p.color = "rgba(255,255,255,0.05)";
-                }
-            });
-        }
-
-        async function run() {
-            document.getElementById('ui').style.opacity = '0';
-            setTimeout(() => document.getElementById('ui').style.display = 'none', 1000);
-            
-            updateStage(-2); 
-            await new Promise(r => setTimeout(r, 5000));
-            
-            particles.forEach(p => {
-                const a = Math.random() * Math.PI * 2;
-                p.destX = width/2 + Math.cos(a) * width;
-                p.destY = height/2 + Math.sin(a) * height;
-                p.acc = 0.001;
-            });
-            await new Promise(r => setTimeout(r, 1500));
-
-            updateStage(3); 
-            await new Promise(r => setTimeout(r, 5000));
-
-            stage = 4;
-            const fwLaunch = setInterval(() => {
-                fireworks.push(new Firework(Math.random()*width, Math.random()*height*0.5));
-            }, 600);
-            await new Promise(r => setTimeout(r, 5000));
-            clearInterval(fwLaunch);
-
-            updateStage(5); 
-            setTimeout(() => {
-                const btn = document.createElement('div');
-                btn.innerHTML = "点触火苗，许下心愿";
-                btn.className = "btn-start";
-                btn.style.cssText = "position:fixed; bottom:15%; left:50%; transform:translateX(-50%); pointer-events:auto; z-index:500; font-size: 16px; padding: 12px 30px;";
-                btn.onclick = () => {
-                    btn.remove();
-                    stage = 6;
-                    particles.forEach(p => { p.destY -= height; p.acc = 0.001; });
-                    setTimeout(() => {
-                        const box = document.getElementById('gift-box');
-                        box.style.display = 'block';
-                        setTimeout(() => box.style.opacity = '1', 50);
-                    }, 1500);
-                };
-                document.body.appendChild(btn);
-            }, 3000);
-        }
-
-        class Firework {
-            constructor(x, y) {
-                this.x = x; this.y = y;
-                this.parts = [];
-                const hue = Math.random() * 360;
-                for(let i=0; i<60; i++) {
-                    const a = Math.random() * Math.PI * 2;
-                    const s = Math.random() * 4 + 1;
-                    this.parts.push({
-                        x:x, y:y, vx:Math.cos(a)*s, vy:Math.sin(a)*s,
-                        life: 1.0, decay: Math.random()*0.02 + 0.015,
-                        c: `hsla(${hue}, 80%, 60%, 1)`
-                    });
+    function switchStage(newStage) {
+        stage = newStage;
+        let targets = [];
+        if(stage === 1) targets = getSketchPoints();
+        if(stage === 2) targets = getTextPoints("HAPPY BIRTHDAY");
+        if(stage === 4) { 
+            const cx = width/2, cy = height/2 + 150;
+            function addCakeLayer(baseRadius, heightRange, color) {
+                for(let r = 0; r <= baseRadius; r += 5) {
+                    const count = r * 0.8; 
+                    for(let i = 0; i < count; i++) {
+                        const angle = (i / count) * Math.PI * 2;
+                        targets.push({
+                            x: cx + Math.cos(angle) * r, 
+                            y: cy + heightRange[0] + Math.sin(angle) * (r * 0.35), 
+                            c: color
+                        });
+                        if (r === baseRadius) {
+                            for (let h = heightRange[0]; h <= heightRange[1]; h += 5) {
+                                targets.push({
+                                    x: cx + Math.cos(angle) * r, 
+                                    y: cy + h + Math.sin(angle) * (r * 0.35), 
+                                    c: color
+                                });
+                            }
+                        }
+                    }
                 }
             }
-            update() {
-                this.parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.life -= p.decay; });
-                this.parts = this.parts.filter(p => p.life > 0);
-            }
-            draw() {
-                this.parts.forEach(p => {
-                    ctx.globalAlpha = p.life; ctx.fillStyle = p.c;
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI*2); ctx.fill();
-                });
-            }
+            addCakeLayer(200, [0, 60], '#ff85a1');    
+            addCakeLayer(150, [-70, -10], '#fbb6ce'); 
+            addCakeLayer(100, [-135, -80], '#ffffff'); 
+            for(let y=-185; y<-135; y+=4) targets.push({x:cx, y:cy+y, c:'#ffd700'});
         }
 
-        function init() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            stars = Array.from({length:400}, () => ({
-                x:Math.random()*width, 
-                y:Math.random()*height, 
-                s:Math.random()*1.2, 
-                o:Math.random()
-            }));
-            particles = Array.from({length:PARTICLE_COUNT}, () => new Particle());
-            meteors = Array.from({length:2}, () => new Meteor());
+        particles.forEach((p, i) => {
+            p.isHeart = false;
+            if(i < targets.length) {
+                p.destX = targets[i].x; p.destY = targets[i].y;
+                p.color = targets[i].c || '#fff';
+            } else if(stage === 2 && i < targets.length + 4500) { 
+                p.isHeart = true;
+                p.heartIdx = i - targets.length;
+                p.color = `hsla(${Math.random()*20 + 340}, 100%, 75%, 0.9)`;
+            } else {
+                const angle = Math.random() * Math.PI * 2;
+                const r = width * (1.1 + Math.random()*0.6);
+                p.destX = width/2 + Math.cos(angle) * r;
+                p.destY = height/2 + Math.sin(angle) * r;
+                p.color = `rgba(255,255,255,${Math.random()*0.15})`;
+            }
+        });
+    }
+
+    class Firework {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = height;
+            this.targetY = Math.random() * height * 0.45 + 50;
+            this.exploded = false;
+            this.velY = -15;
+            this.particles = [];
+            // 亮色系：亮青、亮金、鲜红、极光紫
+            const hues = [180, 50, 0, 280, 120];
+            this.hue = hues[Math.floor(Math.random() * hues.length)];
         }
-
-        function animate() {
-            ctx.fillStyle = 'rgba(1, 1, 5, 0.2)';
-            ctx.fillRect(0, 0, width, height);
-
-            stars.forEach(s => {
-                s.o = 0.1 + Math.abs(Math.sin(Date.now()*0.0005 + s.x)) * 0.8;
-                ctx.globalAlpha = s.o; ctx.fillStyle = "#fff";
-                ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill();
-            });
-            ctx.globalAlpha = 1;
-
-            meteors.forEach(m => { m.update(); m.draw(); });
-
-            if (stage === 3) heartAngleOffset += 0.008;
-            if (stage === 4) {
-                fireworks.forEach((f, i) => { f.update(); f.draw(); if(!f.parts.length) fireworks.splice(i,1); });
-            }
-
-            particles.forEach(p => { p.update(); p.draw(); });
-
-            if (stage === 5) {
-                const cXs = [width/2-35, width/2, width/2+35];
-                cXs.forEach(fx => {
-                    const fy = height/2 - 10;
-                    const t = Date.now() * 0.006 + fx;
-                    ctx.shadowBlur = 15; ctx.shadowColor = "#ff6600";
-                    ctx.fillStyle = "#ffcc33";
-                    ctx.beginPath();
-                    ctx.ellipse(fx, fy + Math.sin(t)*3, 6, 11 + Math.sin(t)*2, 0, 0, Math.PI*2);
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
+        update() {
+            if(!this.exploded) {
+                this.y += this.velY; this.velY += 0.28;
+                if(this.velY >= 0) {
+                    this.exploded = true;
+                    try { const s = fwSound.cloneNode(); s.volume = 0.2; s.play(); } catch(e){}
+                    // 更大朵的粒子数
+                    for(let i=0; i<180; i++) { 
+                        const a = Math.random()*Math.PI*2; const s = Math.random()*10+2;
+                        this.particles.push({
+                            x:this.x, y:this.y, vx:Math.cos(a)*s, vy:Math.sin(a)*s, 
+                            alpha:1, decay:Math.random()*0.015+0.01,
+                            sparkle: Math.random() > 0.8
+                        });
+                    }
+                }
+            } else {
+                this.particles.forEach(p => { 
+                    p.x += p.vx; p.y += p.vy; p.vy+=0.12; p.alpha -= p.decay; 
                 });
+                this.particles = this.particles.filter(p => p.alpha > 0);
             }
+        }
+        draw() {
+            if(!this.exploded) {
+                ctx.fillStyle="#fff"; ctx.beginPath(); ctx.arc(this.x, this.y, 3, 0, Math.PI*2); ctx.fill();
+            } else {
+                this.particles.forEach(p => {
+                    ctx.globalAlpha = p.alpha;
+                    // 闪烁效果
+                    const light = p.sparkle && Math.random() > 0.5 ? 90 : 70;
+                    ctx.fillStyle=`hsla(${this.hue},100%,${light}%,1)`;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 1.8, 0, Math.PI*2); ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+            }
+        }
+    }
 
+    async function runJourney() {
+        if(bgMusic.paused) bgMusic.play().catch(()=>{});
+        document.getElementById('ui').style.opacity = 0;
+        setTimeout(() => document.getElementById('ui').style.display='none', 1000);
+
+        switchStage(1); 
+        await new Promise(r => setTimeout(r, 6500));
+        
+        switchStage(2); 
+        await new Promise(r => setTimeout(r, 8000));
+
+        stage = 3; 
+        const fwInterval = setInterval(() => fireworks.push(new Firework()), 800);
+        await new Promise(r => setTimeout(r, 9000));
+        clearInterval(fwInterval);
+
+        switchStage(4); 
+        setTimeout(() => {
+            const hint = document.createElement('div');
+            hint.innerHTML = "🎂 许个愿吧，点击屏幕吹灭蜡烛 🎂";
+            hint.className = "btn-start";
+            hint.style.cssText = "position:fixed; bottom:12%; left:50%; transform:translateX(-50%); z-index:500; font-size:16px; border-color: #ff85a1;";
+            hint.onclick = () => {
+                hint.remove();
+                particles.forEach(p => { p.destY += height; p.acc = 0.01; p.friction = 0.96; });
+                setTimeout(() => {
+                    const box = document.getElementById('gift-box');
+                    box.style.display = 'block';
+                    setTimeout(() => box.style.opacity = 1, 100);
+                }, 1600);
+            };
+            document.body.appendChild(hint);
+        }, 3500);
+    }
+
+    function init() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        particles = Array.from({length: PARTICLE_COUNT}, () => new Particle());
+        stars = Array.from({length: 400}, () => ({ x:Math.random()*width, y:Math.random()*height, s:Math.random()*0.8, o:0 }));
+        meteors = Array.from({length: 5}, () => new Meteor());
+    }
+
+    function animate() {
+        ctx.fillStyle = 'rgba(0,0,0,0.22)';
+        ctx.fillRect(0,0,width,height);
+
+        if (stage === -1) {
             requestAnimationFrame(animate);
+            return;
         }
 
-        document.getElementById('startBtn').onclick = run;
-        document.getElementById('gift-box').onclick = () => {
-            document.querySelector('.box-lid').style.transform = 'translateY(-150px) rotate(-20deg)';
-            setTimeout(() => {
-                document.getElementById('gift-box').style.opacity = '0';
-                setTimeout(() => document.getElementById('gift-box').style.display='none', 1000);
-                const card = document.getElementById('card');
-                card.style.display = 'block';
-                setTimeout(() => { 
-                    card.style.opacity = '1'; 
-                    card.style.transform='translate(-50%, -50%) scale(1)'; 
-                }, 100);
-            }, 1000);
-        };
+        // 绘制星空与流星
+        stars.forEach(s => {
+            s.o = 0.1 + Math.abs(Math.sin(Date.now()*0.0008 + s.x))*0.7;
+            ctx.globalAlpha = s.o; ctx.fillStyle="#fff";
+            ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fill();
+        });
+        meteors.forEach(m => { m.update(); m.draw(); });
+        ctx.globalAlpha = 1;
 
-        init(); animate();
-        window.onresize = init;
-    });
+        if(stage === 2) {
+            heartRot += 0.01;
+            heartFlowOffset += 0.05;
+        }
+        
+        if(stage === 3) {
+            fireworks.forEach((f, i) => { f.update(); f.draw(); if(f.exploded && f.particles.length === 0) fireworks.splice(i,1); });
+        }
+
+        particles.forEach(p => { p.update(); p.draw(); });
+
+        if(stage === 4) { 
+            const cx = width/2, cy = height/2 + 150;
+            ctx.shadowBlur = 35; ctx.shadowColor = "#ffcc33";
+            ctx.fillStyle = "#ffcc33";
+            ctx.beginPath();
+            ctx.ellipse(cx, cy - 195 + Math.sin(Date.now()*0.015)*8, 11, 24, 0, 0, Math.PI*2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+        requestAnimationFrame(animate);
+    }
+
+    document.getElementById('startBtn').onclick = runJourney;
+    document.getElementById('gift-box').onclick = () => {
+        document.querySelector('.box-lid').style.transform = 'translateY(-190px) rotate(-12deg)';
+        setTimeout(() => {
+            document.getElementById('gift-box').style.opacity = 0;
+            const card = document.getElementById('card');
+            card.style.display = 'block';
+            setTimeout(() => { card.style.opacity = 1; card.style.transform = 'translate(-50%, -50%) scale(1)'; }, 100);
+        }, 800);
+    };
+
+    window.onload = () => { init(); animate(); }
+    window.onresize = init;
 </script>
-
 </body>
 </html>
